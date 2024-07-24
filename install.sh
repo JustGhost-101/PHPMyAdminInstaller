@@ -224,13 +224,13 @@ function phpinstall() {
 
     runCommand "sh -c 'echo \"deb https://packages.sury.org/php/ \$(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list'"
 
-    runCommand "apt -y update"
+    runCommand "apt update -y"
 
-    runCommand "apt -y install php8.3 php8.3-{cli,fpm,common,mysql,zip,gd,mbstring,curl,xml,bcmath}  libapache2-mod-php8.3" "installing php8"
+    runCommand "apt install -y php8.3 php8.3-{cli,fpm,common,mysql,zip,gd,mbstring,curl,xml,bcmath}  libapache2-mod-php8.3" "installing php8"
 
   else
 
-    runCommand "apt -y install php php-{cli,fpm,common,mysql,zip,gd,mbstring,curl,xml,bcmath}  libapache2-mod-php" "installing default php version"
+    runCommand "apt install -y php php-{cli,fpm,common,mysql,zip,gd,mbstring,curl,xml,bcmath}  libapache2-mod-php" "installing default php version"
 
   fi
 
