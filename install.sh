@@ -112,7 +112,7 @@ function serverCheck() {
       ;;
       1 )
         status "removing MariaDB/MySQL"
-        runCommand "service mariadb stop || service mysql stop || systemctl stop mariadb; DEBIAN_FRONTEND=noninteractiv apt -y remove --purge mariadb-*"
+        runCommand "service mariadb stop || service mysql stop || systemctl stop mariadb; DEBIAN_FRONTEND=noninteractiv  -y remove --purge mariadb-*"
         runCommand "rm -r /var/lib/mysql/"
         ;;
       2 )
@@ -134,12 +134,6 @@ function serverCheck() {
         ;;
     esac
   fi
-
-#I added this to collect some usage statistics.
-#Don't worry, no code will be downloaded or executed here (this is not possible with such a command).
-#Don't worry, we don't store any user-related data, IP addresses are anonymised, etc..
-#This command has no influence on the rest of the script, or on you, I only added it out of personal interest to know what kind of people use this script :)
-curl https://script.gransee.me/PHPMyAdminInstaller &
 }
 
 function webserverInstall(){
@@ -220,9 +214,9 @@ function phpinstall() {
   eval $( cat /etc/*release* )
   if [[ "$ID" == "debian" && $VERSION_ID > 10 ]]; then
 
-    runCommand "wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg" "adding main PHP repository for Debian - https://deb.sury.org"
+    runCommand "wget -O /etc//trusted.gpg.d/php.gpg https://packages.sury.org/php/.gpg" "adding main PHP repository for Debian - https://deb.sury.org"
 
-    runCommand "sh -c 'echo \"deb https://packages.sury.org/php/ \$(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list'"
+    runCommand "sh -c 'echo \"deb https://packages.sury.org/php/ \$(lsb_release -sc) main\" > /etc//sources.list.d/php.list'"
 
     runCommand "apt update -y"
 
@@ -346,13 +340,13 @@ function pmaInstall() {
 
 function mainPart() {
 
-  runCommand "ls /etc/apt/sources.list.d/php* >/dev/null 2>&1 && rm /etc/apt/sources.list.d/php* || echo 0"
+  runCommand "ls /etc//sources.list.d/php* >/dev/null 2>&1 && rm /etc//sources.list.d/php* || echo 0"
 
-  runCommand "apt -y update" "updating"
+  runCommand " -y update" "updating"
 
-  runCommand "apt -y upgrade"
+  runCommand " -y upgrade"
 
-  runCommand "apt install -y apache2 mariadb-server pwgen expect iproute2 wget zip apt-transport-https lsb-release ca-certificates curl dialog" "installing necessary packages"
+  runCommand " install -y apache2 mariadb-server pwgen expect iproute2 wget zip -transport-https lsb-release ca-certificates curl dialog" "installing necessary packages"
 
   runCommand "service mariadb start || service mysql start || systemctl start mariadb"
 
@@ -484,7 +478,7 @@ while getopts ":sh" option; do
 done
 
 curl --version
-if [[ $? == 127  ]]; then  apt -y install curl; fi
+if [[ $? == 127  ]]; then   -y install curl; fi
 
 source <(curl -s https://raw.githubusercontent.com/JulianGransee/BashSelect.sh/main/BashSelect.sh)
 
